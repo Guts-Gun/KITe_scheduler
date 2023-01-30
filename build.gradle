@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     runtimeOnly 'mysql:mysql-connector-java'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.0.0'
 }
 
 tasks.named('test') {
