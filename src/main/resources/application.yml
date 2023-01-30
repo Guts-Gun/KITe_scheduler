@@ -1,5 +1,5 @@
 server:
-  port: 8003
+  port: 8008
 spring:
   writedb:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,24 +16,28 @@ spring:
     hikari:
       maximum-pool-size: 10
   jpa:
+    generate-ddl: true
+    open-in-view: false
+    show-sql: true
     hibernate:
-      ddl-auto: create  # option type: create, create-drop, update, validate, none
+      ddl-auto: update  # option type: create, create-drop, update, validate, none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
 
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL57Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         storage_engine: innodb
         format_sql: true
-        show-sql: true
-        generate-ddl: true
-    open-in-view: false
+        show_sql: true
 
-  logging:
-    level:
-      org:
-        hibernate:
-          type:
-            descriptor:
-              sql: trace  # query의 ?에 어떤 값이 들어가는지 TRACE Log에 값을 보여줌
+
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace # query의 ?에 어떤 값이 들어가는지 TRACE Log에 값을 보여줌
