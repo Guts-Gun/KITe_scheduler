@@ -16,7 +16,7 @@ public interface SendingSchedulerServiceClient {
 	 * @param sendingScheduleDto Schedule info = {Long sendingId, Long time(UTC)}
 	 * @return
 	 */
-	@PostMapping("/add")
+	@PostMapping("/scheduler/add")
 	String addSchedule(@RequestBody SendingScheduleDto sendingScheduleDto);
 
 	/**
@@ -25,7 +25,7 @@ public interface SendingSchedulerServiceClient {
 	 * @param sendingScheduleDto Schedule info = {Long sendingId, Long time(UTC, 의미없음)}
 	 * @return
 	 */
-	@DeleteMapping("/remove")
+	@DeleteMapping("/scheduler/remove")
 	String removeSchedule(@RequestBody SendingScheduleDto sendingScheduleDto);
 
 	/**
@@ -34,7 +34,7 @@ public interface SendingSchedulerServiceClient {
 	 * @param sendingScheduleDto Schedule info = {Long sendingId, Long time(UTC)}
 	 * @return
 	 */
-	@PostMapping("/update")
-	public String updateSchedule(@RequestBody SendingScheduleDto sendingScheduleDto);
+	@PostMapping("/scheduler/update")
+	String updateSchedule(@RequestBody SendingScheduleDto sendingScheduleDto);
 
 }
