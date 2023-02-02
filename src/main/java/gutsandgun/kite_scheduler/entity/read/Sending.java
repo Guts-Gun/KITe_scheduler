@@ -87,6 +87,9 @@ public class Sending {
     @Comment("메시지 내용")
     private String content;
 
+    @Comment("발신자")
+    private String sender;
+
     @ColumnDefault("false")
     private Boolean isDeleted = false;
 
