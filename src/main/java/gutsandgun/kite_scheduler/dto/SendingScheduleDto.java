@@ -1,6 +1,9 @@
 package gutsandgun.kite_scheduler.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,7 +13,10 @@ import java.io.Serializable;
  */
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SendingScheduleDto implements Serializable {
-	private final Long sendingId;
-	private final Long time;
+	private Long sendingId;
+	private Long time;
 }
