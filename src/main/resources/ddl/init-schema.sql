@@ -1,11 +1,11 @@
 CREATE TABLE address_email
 (
     id                 BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt             VARCHAR(255)          NULL,
+    mod_dt             VARCHAR(255)          NULL,
     fk_user_address_id BIGINT                NULL,
     email              VARCHAR(255)          NULL,
     is_deleted         BIT(1)                NULL,
-    reg_dt             datetime              NOT NULL,
-    mod_dt             datetime              NULL,
     reg_id             VARCHAR(20)           NOT NULL,
     mod_id             VARCHAR(20)           NULL,
     CONSTRAINT pk_addressemail PRIMARY KEY (id)
@@ -14,11 +14,11 @@ CREATE TABLE address_email
 CREATE TABLE address_group
 (
     id                 BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt             VARCHAR(255)          NULL,
+    mod_dt             VARCHAR(255)          NULL,
     fk_user_address_id BIGINT                NULL,
     fk_user_group_id   BIGINT                NULL,
     is_deleted         BIT(1)                NULL,
-    reg_dt             datetime              NOT NULL,
-    mod_dt             datetime              NULL,
     reg_id             VARCHAR(20)           NOT NULL,
     mod_id             VARCHAR(20)           NULL,
     CONSTRAINT pk_addressgroup PRIMARY KEY (id)
@@ -27,11 +27,11 @@ CREATE TABLE address_group
 CREATE TABLE address_phone
 (
     id                 BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt             VARCHAR(255)          NULL,
+    mod_dt             VARCHAR(255)          NULL,
     fk_user_address_id BIGINT                NULL,
     phone              VARCHAR(255)          NULL,
     is_deleted         BIT(1)                NULL,
-    reg_dt             datetime              NOT NULL,
-    mod_dt             datetime              NULL,
     reg_id             VARCHAR(20)           NOT NULL,
     mod_id             VARCHAR(20)           NULL,
     CONSTRAINT pk_addressphone PRIMARY KEY (id)
@@ -40,6 +40,8 @@ CREATE TABLE address_phone
 CREATE TABLE broker
 (
     id           BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt       VARCHAR(255)          NULL,
+    mod_dt       VARCHAR(255)          NULL,
     name         VARCHAR(255)          NULL,
     ip           VARCHAR(255)          NULL,
     color        BLOB                  NULL,
@@ -50,9 +52,25 @@ CREATE TABLE broker
     CONSTRAINT pk_broker PRIMARY KEY (id)
 );
 
+CREATE TABLE message_template
+(
+    id         BIGINT       NOT NULL,
+    reg_dt     VARCHAR(255) NULL,
+    mod_dt     VARCHAR(255) NULL,
+    fk_user_id VARCHAR(255) NULL,
+    title      VARCHAR(255) NULL,
+    content    VARCHAR(255) NULL,
+    is_deleted BIT(1)       NULL,
+    reg_id     VARCHAR(20)  NOT NULL,
+    mod_id     VARCHAR(20)  NULL,
+    CONSTRAINT pk_message_template PRIMARY KEY (id)
+);
+
 CREATE TABLE result_sending
 (
     id                BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt            VARCHAR(255)          NULL,
+    mod_dt            VARCHAR(255)          NULL,
     fk_user_id        VARCHAR(255)          NULL,
     fk_sending_id     BIGINT                NULL,
     sending_type      INT                   NULL,
@@ -74,6 +92,8 @@ CREATE TABLE result_sending
 CREATE TABLE result_tx
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt               VARCHAR(255)          NULL,
+    mod_dt               VARCHAR(255)          NULL,
     fk_user_id           VARCHAR(255)          NULL,
     fk_result_sending_id BIGINT                NULL,
     fk_tx_id             BIGINT                NULL,
@@ -99,6 +119,8 @@ CREATE TABLE result_tx
 CREATE TABLE result_tx_failure
 (
     id                   BIGINT       NOT NULL,
+    reg_dt               VARCHAR(255) NULL,
+    mod_dt               VARCHAR(255) NULL,
     fk_user_id           VARCHAR(255) NULL,
     fk_result_sending_id BIGINT       NULL,
     fk_tx_id             BIGINT       NULL,
@@ -115,6 +137,8 @@ CREATE TABLE result_tx_failure
 CREATE TABLE send_replace
 (
     fk_tx_id BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt   VARCHAR(255)          NULL,
+    mod_dt   VARCHAR(255)          NULL,
     receiver VARCHAR(255)          NULL,
     sender   VARCHAR(255)          NULL,
     reg_id   VARCHAR(20)           NOT NULL,
@@ -125,6 +149,8 @@ CREATE TABLE send_replace
 CREATE TABLE sending
 (
     id                BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt            VARCHAR(255)          NULL,
+    mod_dt            VARCHAR(255)          NULL,
     fk_user_id        VARCHAR(255)          NULL,
     sending_rule_type VARCHAR(255)          NULL,
     sending_type      VARCHAR(255)          NULL,
@@ -135,17 +161,18 @@ CREATE TABLE sending
     title             VARCHAR(255)          NULL,
     media_link        VARCHAR(255)          NULL,
     content           VARCHAR(255)          NULL,
+    sender            VARCHAR(255)          NULL,
     is_deleted        BIT(1)                NULL,
     reg_id            VARCHAR(20)           NOT NULL,
     mod_id            VARCHAR(20)           NULL,
-    reg_dt            datetime              NOT NULL,
-    mod_dt            datetime              NULL,
     CONSTRAINT pk_sending PRIMARY KEY (id)
 );
 
 CREATE TABLE sending_block
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt     VARCHAR(255)          NULL,
+    mod_dt     VARCHAR(255)          NULL,
     sender     VARCHAR(255)          NULL,
     receiver   VARCHAR(255)          NULL,
     block_time BIGINT                NULL,
@@ -156,6 +183,8 @@ CREATE TABLE sending_block
 CREATE TABLE sending_email
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt        VARCHAR(255)          NULL,
+    mod_dt        VARCHAR(255)          NULL,
     fk_sending_id BIGINT                NULL,
     sender        VARCHAR(255)          NULL,
     receiver      VARCHAR(255)          NULL,
@@ -170,6 +199,8 @@ CREATE TABLE sending_email
 CREATE TABLE sending_msg
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt        VARCHAR(255)          NULL,
+    mod_dt        VARCHAR(255)          NULL,
     fk_sending_id BIGINT                NULL,
     sender        VARCHAR(255)          NULL,
     receiver      VARCHAR(255)          NULL,
@@ -180,14 +211,14 @@ CREATE TABLE sending_msg
     var2          VARCHAR(255)          NULL,
     var3          VARCHAR(255)          NULL,
     is_deleted    BIT(1)                NULL,
-    reg_dt        datetime              NOT NULL,
-    mod_dt        datetime              NULL,
     CONSTRAINT pk_sending_msg PRIMARY KEY (id)
 );
 
 CREATE TABLE sending_rule
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt        VARCHAR(255)          NULL,
+    mod_dt        VARCHAR(255)          NULL,
     fk_user_id    VARCHAR(255)          NULL,
     fk_sending_id BIGINT                NULL,
     fk_broker_id  BIGINT                NULL,
@@ -208,6 +239,8 @@ CREATE TABLE sending_schedule
 CREATE TABLE user
 (
     id         VARCHAR(255) NOT NULL,
+    reg_dt     VARCHAR(255) NULL,
+    mod_dt     VARCHAR(255) NULL,
     name       VARCHAR(255) NULL,
     email      VARCHAR(255) NULL,
     is_deleted BIT(1)       NULL,
@@ -217,11 +250,11 @@ CREATE TABLE user
 CREATE TABLE user_address
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt     VARCHAR(255)          NULL,
+    mod_dt     VARCHAR(255)          NULL,
     fk_user_id VARCHAR(255)          NULL,
     name       VARCHAR(255)          NULL,
     is_deleted BIT(1)                NULL,
-    reg_dt     datetime              NOT NULL,
-    mod_dt     datetime              NULL,
     reg_id     VARCHAR(20)           NOT NULL,
     mod_id     VARCHAR(20)           NULL,
     CONSTRAINT pk_user_address PRIMARY KEY (id)
@@ -230,12 +263,12 @@ CREATE TABLE user_address
 CREATE TABLE user_email
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt     VARCHAR(255)          NULL,
+    mod_dt     VARCHAR(255)          NULL,
     fk_user_id VARCHAR(255)          NULL,
     name       VARCHAR(255)          NULL,
     email      VARCHAR(255)          NULL,
     is_deleted BIT(1)                NULL,
-    reg_dt     datetime              NOT NULL,
-    mod_dt     datetime              NULL,
     reg_id     VARCHAR(20)           NOT NULL,
     mod_id     VARCHAR(20)           NULL,
     CONSTRAINT pk_user_email PRIMARY KEY (id)
@@ -244,12 +277,12 @@ CREATE TABLE user_email
 CREATE TABLE user_group
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt        VARCHAR(255)          NULL,
+    mod_dt        VARCHAR(255)          NULL,
     fk_user_id    VARCHAR(255)          NULL,
     group_name    VARCHAR(255)          NULL,
     `description` VARCHAR(255)          NULL,
     is_deleted    BIT(1)                NULL,
-    reg_dt        datetime              NOT NULL,
-    mod_dt        datetime              NULL,
     reg_id        VARCHAR(20)           NOT NULL,
     mod_id        VARCHAR(20)           NULL,
     CONSTRAINT pk_user_group PRIMARY KEY (id)
@@ -258,12 +291,12 @@ CREATE TABLE user_group
 CREATE TABLE user_phone
 (
     id         BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt     VARCHAR(255)          NULL,
+    mod_dt     VARCHAR(255)          NULL,
     fk_user_id VARCHAR(255)          NULL,
     name       VARCHAR(255)          NULL,
     phone      VARCHAR(255)          NULL,
     is_deleted BIT(1)                NULL,
-    reg_dt     datetime              NOT NULL,
-    mod_dt     datetime              NULL,
     reg_id     VARCHAR(20)           NOT NULL,
     mod_id     VARCHAR(20)           NULL,
     CONSTRAINT pk_user_phone PRIMARY KEY (id)

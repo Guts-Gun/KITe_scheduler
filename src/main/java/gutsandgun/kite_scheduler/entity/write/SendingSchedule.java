@@ -1,6 +1,7 @@
 package gutsandgun.kite_scheduler.entity.write;
 
 import gutsandgun.kite_scheduler.dto.SendingScheduleDto;
+import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.Where;
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE sending_schedule SET is_deleted=true WHERE id = ?")
 @Table(name = "sending_schedule")
-public class SendingSchedule {
+public class SendingSchedule extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +39,12 @@ public class SendingSchedule {
 	@ColumnDefault("false")
 	private Boolean isDeleted = false;
 
+
 	public SendingSchedule(SendingScheduleDto sendingScheduleDto) {
 		this.sendingId = sendingScheduleDto.getSendingId();
 		this.time = sendingScheduleDto.getTime();
 	}
 
-
-
 	public SendingSchedule() {
-
 	}
 }

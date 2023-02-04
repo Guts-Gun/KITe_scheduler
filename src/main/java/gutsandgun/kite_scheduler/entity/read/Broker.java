@@ -1,5 +1,6 @@
 package gutsandgun.kite_scheduler.entity.read;
 
+import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.awt.*;
 @Setter
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE broker SET is_deleted=true WHERE id = ?")
-public class Broker {
+public class Broker extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

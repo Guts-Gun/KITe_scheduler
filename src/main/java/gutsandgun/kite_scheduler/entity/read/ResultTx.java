@@ -1,5 +1,6 @@
 package gutsandgun.kite_scheduler.entity.read;
 
+import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
 import gutsandgun.kite_scheduler.type.FailReason;
 import gutsandgun.kite_scheduler.type.SendingType;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.Where;
 @Setter
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE result_tx SET is_deleted=true WHERE id = ?")
-public class ResultTx {
+public class ResultTx extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

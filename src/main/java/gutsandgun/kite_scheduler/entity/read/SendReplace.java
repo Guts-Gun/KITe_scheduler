@@ -1,5 +1,6 @@
 package gutsandgun.kite_scheduler.entity.read;
 
+import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.Comment;
 //@Where(clause = "is_deleted = false")
 //@SQLDelete(sql= "UPDATE sending_msg SET is_deleted=true WHERE id = ?")
 @Table(name = "send_replace")
-public class SendReplace {
+public class SendReplace extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

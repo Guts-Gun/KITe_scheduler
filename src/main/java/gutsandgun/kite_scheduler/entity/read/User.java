@@ -1,5 +1,6 @@
 package gutsandgun.kite_scheduler.entity.read;
 
+import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -13,27 +14,27 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @Where(clause = "is_deleted = false")
-@SQLDelete(sql= "UPDATE user SET is_deleted=true WHERE id = ?")
-public class User {
+@SQLDelete(sql = "UPDATE user SET is_deleted=true WHERE id = ?")
+public class User extends BaseTimeEntity {
 
-    /**
-     * String user id generate from keycloak
-     */
-    @Id
-    private String id;
+	/**
+	 * String user id generate from keycloak
+	 */
+	@Id
+	private String id;
 
-    /**
-     * user 이름
-     */
-    @Comment("")
-    private String name;
+	/**
+	 * user 이름
+	 */
+	@Comment("")
+	private String name;
 
-    /**
-     * user email
-     */
-    @Comment("e-mail")
-    private String email;
+	/**
+	 * user email
+	 */
+	@Comment("e-mail")
+	private String email;
 
-    @ColumnDefault("false")
-    private Boolean isDeleted = false;
+	@ColumnDefault("false")
+	private Boolean isDeleted = false;
 }
