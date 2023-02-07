@@ -44,9 +44,10 @@ CREATE TABLE broker
     mod_dt       VARCHAR(255)          NULL,
     name         VARCHAR(255)          NULL,
     ip           VARCHAR(255)          NULL,
-    color        BLOB                  NULL,
+    color        VARCHAR(255)          NULL,
+    sending_type INT                   NULL,
     price        FLOAT                 NULL,
-    speed        FLOAT                 NULL,
+    latency      FLOAT                 NULL,
     failure_rate FLOAT                 NULL,
     is_deleted   BIT(1)                NULL,
     CONSTRAINT pk_broker PRIMARY KEY (id)
@@ -79,7 +80,7 @@ CREATE TABLE result_sending
     success           BIT(1)                NULL,
     total_message     BIGINT                NULL,
     failed_message    BIGINT                NULL,
-    avg_speed         FLOAT                 NULL,
+    avg_latency       FLOAT                 NULL,
     input_time        BIGINT                NULL,
     schedule_time     BIGINT                NULL,
     start_time        BIGINT                NULL,
@@ -177,6 +178,8 @@ CREATE TABLE sending_block
     receiver   VARCHAR(255)          NULL,
     block_time BIGINT                NULL,
     is_deleted BIT(1)                NULL,
+    reg_id     VARCHAR(20)           NOT NULL,
+    mod_id     VARCHAR(20)           NULL,
     CONSTRAINT pk_sendingblock PRIMARY KEY (id)
 );
 
@@ -193,6 +196,8 @@ CREATE TABLE sending_email
     var2          VARCHAR(255)          NULL,
     var3          VARCHAR(255)          NULL,
     is_deleted    BIT(1)                NULL,
+    reg_id        VARCHAR(20)           NOT NULL,
+    mod_id        VARCHAR(20)           NULL,
     CONSTRAINT pk_sendingemail PRIMARY KEY (id)
 );
 
@@ -205,12 +210,12 @@ CREATE TABLE sending_msg
     sender        VARCHAR(255)          NULL,
     receiver      VARCHAR(255)          NULL,
     name          VARCHAR(255)          NULL,
-    reg_id        VARCHAR(20)           NOT NULL,
-    mod_id        VARCHAR(20)           NULL,
     var1          VARCHAR(255)          NULL,
     var2          VARCHAR(255)          NULL,
     var3          VARCHAR(255)          NULL,
     is_deleted    BIT(1)                NULL,
+    reg_id        VARCHAR(20)           NOT NULL,
+    mod_id        VARCHAR(20)           NULL,
     CONSTRAINT pk_sending_msg PRIMARY KEY (id)
 );
 
@@ -230,6 +235,8 @@ CREATE TABLE sending_rule
 CREATE TABLE sending_schedule
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
+    reg_dt        VARCHAR(255)          NULL,
+    mod_dt        VARCHAR(255)          NULL,
     fk_sending_id BIGINT                NULL,
     time          BIGINT                NULL,
     is_deleted    BIT(1)                NULL,

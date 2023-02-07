@@ -1,6 +1,7 @@
 package gutsandgun.kite_scheduler.entity.read;
 
 import gutsandgun.kite_scheduler.entity.BaseTimeEntity;
+import gutsandgun.kite_scheduler.type.SendingType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +9,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
-import java.awt.*;
 
 @Entity
 @Getter
@@ -36,10 +35,16 @@ public class Broker extends BaseTimeEntity {
 	private String ip;
 
 	/**
-	 * 중계사 컬러
+	 * 중계사 컬러 hex
 	 */
 	@Comment("중계사 색")
-	private Color color = Color.RED;
+	private String color = "#FF0000";
+
+	/**
+	 * 발송 메시지 타입
+	 */
+	@Comment("발송 메시지 타입")
+	private SendingType sendingType;
 
 
 	/**
@@ -49,10 +54,10 @@ public class Broker extends BaseTimeEntity {
 	private Float price;
 
 	/**
-	 * 중계사 속도
+	 * 중계사 응답속도
 	 */
-	@Comment("중계사 속도")
-	private Float speed;
+	@Comment("중계사 응답속도")
+	private Float latency;
 
 	/**
 	 * 중계사 실패율
