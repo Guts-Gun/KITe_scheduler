@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class SendingScheduler {
 
 	@Scheduled(cron = "0/10 * * * * *")
 	public void checkSchedule() {
-		System.out.println("scheduler active time : " + Instant.now());
+		System.out.println("scheduler active time : " + new Date());
 		SendingSchedule[] sendingScheduleList = writeSendingScheduleRepository.findAllByTimeBefore(Instant.now().toEpochMilli());
 		System.out.println("스케줄 해야할거 : ");
 		for (SendingSchedule sendingSchedule : sendingScheduleList) {
@@ -33,7 +34,7 @@ public class SendingScheduler {
 			System.out.println("schedule Id : " + sendingSchedule.getId());
 			this.runSchedule(sendingSchedule);
 		}
-		finishSchedule(sendingScheduleList);
+//		finishSchedule(sendingScheduleList);
 	}
 
 	public void runSchedule(SendingSchedule sendingSchedule) {
@@ -41,7 +42,17 @@ public class SendingScheduler {
 		Map<String, Long> map = new HashMap<>();
 		map.put("sendingId", sendingSchedule.getSendingId());
 		System.out.println("발송 시작 처리중 : " + sendingSchedule.getSendingId());
-		sendingManagerServiceClient.startSending(map);
+		boolean success = false;
+		try {
+			sendingManagerServiceClient.startSending(map);
+			success = true;
+
+		} catch (Exception e) {
+			System.out.println("발송 시작 error: " + sendingSchedule.getSendingId());
+		}
+		if (success) {
+		    finishSchedule(new SendingSchedule[]{sendingSchedule});
+		}
 	}
 
 	public void finishSchedule(SendingSchedule[] sendingScheduleList) {
