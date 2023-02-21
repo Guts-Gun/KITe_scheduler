@@ -51,7 +51,7 @@ public class SendingScheduler {
 			System.out.println("발송 시작 error: " + sendingSchedule.getSendingId());
 		}
 		if (success) {
-		    finishSchedule(new SendingSchedule[]{sendingSchedule});
+			finishSchedule(new SendingSchedule[]{sendingSchedule});
 		}
 	}
 
@@ -62,15 +62,18 @@ public class SendingScheduler {
 	public void addSchedule(SendingScheduleDto sendingScheduleDto) {
 		SendingSchedule sendingSchedule = new SendingSchedule(sendingScheduleDto);
 		writeSendingScheduleRepository.save(sendingSchedule);
+		System.out.println("schedule 추가 : " + sendingScheduleDto.getSendingId());
 	}
 
 	public void removeSchedule(SendingScheduleDto sendingScheduleDto) {
 		writeSendingScheduleRepository.deleteBySendingId(sendingScheduleDto.getSendingId());
+		System.out.println("schedule 삭제 : " + sendingScheduleDto.getSendingId());
 	}
 
 	public void updateSchedule(SendingScheduleDto sendingScheduleDto) {
 		this.removeSchedule(sendingScheduleDto);
 		this.addSchedule(sendingScheduleDto);
+		System.out.println("schedule 수정 : " + sendingScheduleDto.getSendingId());
 	}
 
 }
