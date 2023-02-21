@@ -62,5 +62,5 @@ logging:
 
 feign:
   url:
-    sending-manager : localhost:8004
-    sending-scheduler : localhost:8003
+    sending-manager : https://gutsandgun.kro.kr:30000
+    sending-scheduler : https://gutsandgun.kro.kr:30000
