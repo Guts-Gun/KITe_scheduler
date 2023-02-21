@@ -23,7 +23,7 @@ public class SendingScheduler {
 
 	@Scheduled(cron = "0/10 * * * * *")
 	public void checkSchedule() {
-		System.out.println("scheduler active time : " + new Date());
+		System.out.println("scheduler active time : " + Instant.now().toEpochMilli() + " " +new Date());
 		SendingSchedule[] sendingScheduleList = writeSendingScheduleRepository.findAllByTimeBefore(Instant.now().toEpochMilli());
 		System.out.println("스케줄 해야할거 : ");
 		for (SendingSchedule sendingSchedule : sendingScheduleList) {
